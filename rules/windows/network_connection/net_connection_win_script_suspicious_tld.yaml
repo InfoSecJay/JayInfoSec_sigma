@@ -1,0 +1,79 @@
+title: WScript or CScript Network Connection to Suspicious TLD
+id: 2ef065c7-8dc5-441c-ac59-9a515f764c97
+status: experimental
+description: Detects wscript.exe or cscript.exe making network connections to a suspicious top-level domain (TLD). Malicious scripts, may connect to infrastructure hosted on unusual TLDs.
+references:
+    - https://redcanary.com/blog/intelligence-insights-december-2023/?utm_source=twitter&utm_medium=social
+    - https://unit42.paloaltonetworks.com/top-level-domains-cybercrime/
+author: Jay Tymchuk (@JayInfoSec)
+date: 2023/01/05
+modified: 2023/01/05
+tags:
+    - attack.command_and_control
+    - attack.t1105
+logsource:
+    category: network_connection
+    product: windows
+detection:
+    selection:
+        Image|endswith:
+            - '\wscript.exe'
+            - '\cscript.exe'
+        DestinationHostname|endswith:
+            - '.am'
+            - '.app'
+            - '.bd'
+            - '.best'
+            - '.bid'
+            - '.buzz'
+            - '.cam'
+            - '.casa'
+            - '.cc'
+            - '.cd'
+            - '.cf'
+            - '.club'
+            - '.cm'
+            - '.cn'
+            - '.co'
+            - '.com'
+            - '.cyou'
+            - '.date'
+            - '.de'
+            - '.email'
+            - '.eu'
+            - '.fit'
+            - '.ga'
+            - '.gq'
+            - '.help'
+            - '.icu'
+            - '.info'
+            - '.ke'
+            - '.ml'
+            - '.net'
+            - '.online'
+            - '.ooo'
+            - '.org'
+            - '.pw'
+            - '.quest'
+            - '.rest'
+            - '.ru'
+            - '.sbs'
+            - '.site'
+            - '.stream'
+            - '.su'
+            - '.support'
+            - '.tk'
+            - '.tokyo'
+            - '.top'
+            - '.uk'
+            - '.uno'
+            - '.wang'
+            - '.win'
+            - '.work'
+            - '.ws'
+            - '.xyz'
+            - '.zw'
+    condition: selection
+falsepositives:
+    - This is atypical behavior, although custom admin scripts may reach out to personal domains.
+level: high
