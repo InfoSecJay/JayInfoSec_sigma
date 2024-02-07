@@ -14,9 +14,9 @@ logsource:
     product: symantec_endpoint_protection
 detection:
     selection:
-        event_id|startswith: '8040'
-        threat|startswith: 'MSIE'
-        device_ip|cidr:
+        event_id|startswith: '8040'  # Event ID for Symantec Endpoint Protection Host Network Detection events 
+        threat|startswith: 'MSIE'    # MSIE Signatures are Microsoft Internet Explorer type signatures
+        device_ip|cidr:               # We only want ot moinitor signatures from private IPs (internal assets) 
             - '127.0.0.0/8'
             - '10.0.0.0/8'
             - '172.16.0.0/12'
